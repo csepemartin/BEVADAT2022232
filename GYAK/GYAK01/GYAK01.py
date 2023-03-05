@@ -25,7 +25,6 @@ def is_odd(input_list):
             bool_list.append(True)
         else:
             bool_list.append(False)
-    for bools in bool_list:
     return bool_list
      
 #Create a function that accpects 2 lists of integers and returns their element wise sum. 
