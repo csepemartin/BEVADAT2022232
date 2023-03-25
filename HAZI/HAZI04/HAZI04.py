@@ -2,6 +2,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
 # %%
 '''
@@ -38,7 +39,7 @@ függvény neve: capitalize_columns
 # %%
 def capitalize_columns(df_data):
     new_df=df_data.copy()
-    return new_df.rename(lambda x : x.capitalize() if ('e' in x) else x, axis = 1)
+    return new_df.rename(lambda x : x.capitalize() if ('e' not in x) else x, axis = 1)
     
 
 
@@ -104,10 +105,12 @@ függvény neve: add_age
 '''
 
 # %%
+
+
 def add_age(df_data):
     new_df=df_data.copy()
-    np.random.seed(42)
-    new_df['age'] = np.random.randint(18,66,new_df.shape[0])
+    random.seed(42)
+    new_df['age'] = random.randint(18,66)
     return new_df
 
 # %%
@@ -153,7 +156,7 @@ függvény neve: add_grade
 def add_grade(df_data):
     new_df=df_data.copy()
     new_df['percantage'] = (new_df['math score'] + new_df['reading score'] + new_df['writing score'])/300
-    new_df['grade'] = pd.cut(new_df['percantage'], bins=[0, 0.6, 0.7, 0.8, 0.9, 1.0], labels=['F', 'D', 'C', 'B', 'A'])
+    new_df['grade'] = pd.cut(new_df['percantage'], bins=[-0.1, 0.59, 0.69, 0.79, 0.89, 1.0], labels=['F', 'D', 'C', 'B', 'A'])
     del new_df['percantage']
     return new_df
 
@@ -229,6 +232,6 @@ def ethnicity_pie_chart(df_data):
     new_df=df_data.copy()
     proportion = new_df.pivot_table(index = ['race/ethnicity'], aggfunc ='size')
     fig, ax =plt.subplots()
-    ax.pie(proportion.values,labels=proportion.index)
+    ax.pie(proportion.values,labels=proportion.index,autopct='%1.1f%%')
     ax.set_title('Proportion of Students by Race/Ethnicity')
     return fig
