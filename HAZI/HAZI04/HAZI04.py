@@ -39,9 +39,7 @@ függvény neve: capitalize_columns
 # %%
 def capitalize_columns(df_data):
     new_df=df_data.copy()
-    return new_df.rename(lambda x : x.capitalize() if ('e' not in x) else x, axis = 1)
-    
-
+    return new_df.rename(lambda x : x.upper() if ('e' not in x) else x, axis=1)
 
 # %%
 '''
@@ -110,7 +108,7 @@ függvény neve: add_age
 def add_age(df_data):
     new_df=df_data.copy()
     random.seed(42)
-    new_df['age'] = random.randint(18,66)
+    new_df['age'] = [random.randint(18, 67) for _ in range(len(new_df))]
     return new_df
 
 # %%
@@ -156,7 +154,7 @@ függvény neve: add_grade
 def add_grade(df_data):
     new_df=df_data.copy()
     new_df['percantage'] = (new_df['math score'] + new_df['reading score'] + new_df['writing score'])/300
-    new_df['grade'] = pd.cut(new_df['percantage'], bins=[-0.1, 0.59, 0.69, 0.79, 0.89, 1.0], labels=['F', 'D', 'C', 'B', 'A'])
+    new_df['grade'] = pd.cut(new_df['percantage'], bins=[0, 0.59, 0.69, 0.79, 0.89, 1.0], labels=['F', 'D', 'C', 'B', 'A'])
     del new_df['percantage']
     return new_df
 
@@ -178,10 +176,10 @@ függvény neve: math_bar_plot
 # %%
 def math_bar_plot(df_data):
     new_df=df_data.copy()
-    avg_score = new_df.groupby('gender')['math score'].mean()
+    avg_math_score = new_df.groupby('gender')['math score'].mean()
     fig, ax =plt.subplots()
-    ax.bar(avg_score.index,avg_score.values)
-    ax.set_title('Average Math Score By Gender')
+    ax.bar(avg_math_score.index, avg_math_score.values)
+    ax.set_title('Average Math Score by Gender')
     ax.set_xlabel('Gender')
     ax.set_ylabel('Math Score')
     return fig
@@ -235,3 +233,5 @@ def ethnicity_pie_chart(df_data):
     ax.pie(proportion.values,labels=proportion.index,autopct='%1.1f%%')
     ax.set_title('Proportion of Students by Race/Ethnicity')
     return fig
+
+
