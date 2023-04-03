@@ -48,7 +48,7 @@ class KNNClassifier:
         labels_pred = []
         for index,row in x_test.iterrows():
             one_row = row.to_frame().transpose()
-            distances = self.euclidean(self.x_train,one_row).to_frame()
+            distances = self.euclidean(one_row).to_frame()
             distances['Outcome'] = self.y_train
             distances.sort_values(by=[0], inplace=True)
             label_pred = mode(distances.head(self.k),keepdims=False).mode
@@ -58,8 +58,24 @@ class KNNClassifier:
     
     def accuracy(self) -> float:
         true_positive = self.y_test.where(self.y_test.values==self.y_preds.values).notna().sum()
-        return true_positive / len(self.y_test) * 100
+        return (true_positive / len(self.y_test) * 100).values[0]
     
     def confusion_matrix(self):
         conf_matrix = confusion_matrix(self.y_test,self.y_preds)
         return conf_matrix
+    
+    def best_k(self):
+        result = tuple()
+        self.k = 1
+        self.predict(self.x_test)
+        max_acc = self.accuracy()
+        result = (max_acc,1)
+        for i in range(2,21):
+            self.k = i
+            self.predict(self.x_test)
+            acc = self.accuracy()
+            if(acc > max_acc):
+                max_acc = acc
+                result =(max_acc,i)
+        return result
+
