@@ -1,0 +1,13 @@
+load_csv: A kapott adatokat a számunkra megfelelő adatszerkezetté castoljuk, jelen esetben pandas.DataFrame.Majd ezután két részre bontjuk:x és y.Az x tartalmazza a páciens adatait, az y pedig az eredményt cukorbetegség kialakulására.
+
+train_test_split: Az x-et és y-t további 2-2 részre spliteljük: x_train,x_test és y_train,y_test.A train adatokkal úgymond tanítjuk az algoritmust, a test adatokkal pedig ellenőrizhetjük hogy a várt módon működik-e.Egy tört számot is meg kell adnunk ami beállítja a splitelés arányát.0.2 - 0.3 altalában optimálisak.Például 0.2-nél az eredeti adathalmaz 80% train 20% pedig test adat lesz.
+
+euclidean: Az ismert képlet alapján távolságot számolunk az adathalmaz és egy adat között majd ezt a predictnél fogjuk felhásznalni.
+
+predict: Euclidean segítségével x_test sorai és x_train között távolságokat számolunk majd y_trainből az eredményeket hozzárendeljük amin móduszt számolunk.Így minden x_test elem kap egy új várható eredményt.
+
+Accuracy: Megadja,hogy az új eredmények milyen százalékban voltak helyesek.
+
+plot_confusion_matrix: Értékeli az osztályozási modell működését, és sns.heatmap segítségével vizualizálja is ezt.
+
+best_k: Megadja hogy a predict mely k értékre adja a legpontosabb eredményt
