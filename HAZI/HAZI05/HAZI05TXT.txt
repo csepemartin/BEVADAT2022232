@@ -10,4 +10,4 @@ Accuracy: Megadja,hogy az új eredmények milyen százalékban voltak helyesek.
 
 plot_confusion_matrix: Értékeli az osztályozási modell működését, és sns.heatmap segítségével vizualizálja is ezt.
 
-best_k: Megadja hogy a predict mely k értékre adja a legpontosabb eredményt
+best_k: Megadja hogy az accuracy mely k értékkel adja legpontosabb eredményt
