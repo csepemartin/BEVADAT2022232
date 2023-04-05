@@ -35,9 +35,8 @@ class KNNClassifier:
         self.x_test = x_test
         self.y_test = y_test
     
-
-    def euclidean(self,element_of_x):
-        m = element_of_x.mean()
+    def euclidean(self,element_of_x:pd.Series):
+        m = element_of_x
         copypoints = self.x_train.copy()
         copypoints.loc[:,m.index] -= m
         return ((copypoints**2).sum(axis = 1))**(1/2)
@@ -46,8 +45,7 @@ class KNNClassifier:
     def predict(self,x_test:pd.DataFrame) -> pd.DataFrame:
         labels_pred = []
         for index,row in x_test.iterrows():
-            one_row = row.to_frame().transpose()
-            distances = self.euclidean(one_row).to_frame()
+            distances = self.euclidean(row).to_frame()
             distances['Outcome'] = self.y_train
             distances.sort_values(by=[0], inplace=True)
             label_pred = mode(distances.head(self.k),keepdims=False).mode
@@ -69,12 +67,12 @@ class KNNClassifier:
         self.k = 1
         self.predict(self.x_test)
         max_acc = self.accuracy()
-        result = (max_acc,1)
+        result = (round(max_acc,2),1)
         for i in range(2,21):
             self.k = i
             self.predict(self.x_test)
             acc = self.accuracy()
             if(acc > max_acc):
                 max_acc = acc
-                result =(max_acc,i)
+                result =(round(max_acc,2),i)
         return result
