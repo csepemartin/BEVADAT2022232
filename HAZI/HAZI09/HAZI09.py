@@ -9,7 +9,7 @@ from sklearn.metrics import confusion_matrix
 class KMeansOnDigits():
     
 
-    def __init__(n_clusters,random_state,self):
+    def __init__(self,n_clusters,random_state):
         self.n_clusters= n_clusters
         self.random_state = random_state
 
