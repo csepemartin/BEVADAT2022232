@@ -72,7 +72,7 @@ függvény neve: model_fit
 '''
 
 def model_fit(model,epochs, train_images, train_labels):
-    model.fit(train_images, train_labels, epochs=epochs, validation_data=(test_images, test_labels))
+    model.fit(train_images, train_labels, epochs)
     return model
 
 # %%
@@ -88,5 +88,5 @@ függvény neve: model_evaluate
 
 # %%
 def model_evaluate(model, test_images, test_labels):
-    test_loss, test_acc = model.evaluate(test_images, test_labels,)
+    test_loss, test_acc = model.evaluate(test_images, test_labels)
     return test_loss, test_acc
